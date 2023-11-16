@@ -1,0 +1,27 @@
+def validate_parking_place():
+    n = int(input())
+    users = {}
+
+    for _ in range(n):
+        command = input().split()
+        action = command[0]
+        username = command[1]
+
+        if action == "register":
+            plate_number = command[2]
+            if username in users:
+                print(f"ERROR: already registered with plate number {users[username]}")
+            else:
+                users[username] = plate_number
+                print(f"{username} registered {plate_number} successfully")
+        elif action == "unregister":
+            if username not in users:
+                print(f"ERROR: user {username} not found")
+            else:
+                print(f"{username} unregistered successfully")
+                del users[username]
+
+    for username, plate_number in users.items():
+        print(f"{username} => {plate_number}")
+
+validate_parking_place()
