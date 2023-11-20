@@ -1,5 +1,7 @@
-contests = {}
-individual_points = {}
+from collections import defaultdict
+
+contests = defaultdict(dict)
+individual_points = defaultdict(int)
 
 while True:
     command = input()
@@ -13,7 +15,7 @@ while True:
         contests[contest][username] = points
         individual_points[username] += points
 
-for contest, participants in contests.items():
+for contest, participants in sorted(contests.items(), key=lambda x: x[0]):
     print(f"{contest}: {len(participants)} participants")
     rank = 1
     for user, points in sorted(participants.items(), key=lambda x: (-x[1], x[0])):
