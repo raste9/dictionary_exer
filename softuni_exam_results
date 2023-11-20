@@ -35,3 +35,29 @@ def process_exam():
 
 
 process_exam()
+
+------------------------------------------------------------------
+
+results = {}
+submissions = {}
+
+while True:
+    command = input().split("-")
+    if len(command) == 1:
+        break
+    elif len(command) == 2:
+        del results[command[0]]
+    elif len(command) == 3:
+        username, current_language, current_point = command[0], command[1], int(command[2])
+
+        results[username] = max(results.get(username, 0), current_point)
+
+        submissions[current_language] = submissions.get(current_language, 0) + 1
+
+print("Results:")
+for username, points in results.items():
+    print(f"{username} | {points}")
+print("Submissions:")
+for language, submissions_count in submissions.items():
+    print(f"{language} - {submissions_count}")
+
