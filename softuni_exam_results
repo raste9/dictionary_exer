@@ -1,0 +1,37 @@
+def update_results(results, submissions, command):
+    if len(command) == 2:
+        del results[command[0]]
+    elif len(command) == 3:
+        username, current_language, current_point = command[0], command[1], int(command[2])
+
+        results[username] = max(results.get(username, 0), current_point)
+        submissions[current_language] = submissions.get(current_language, 0) + 1
+
+
+def print_results(results):
+    print("Results:")
+    for username, points in results.items():
+        print(f"{username} | {points}")
+
+
+def print_submissions(submissions):
+    print("Submissions:")
+    for language, submissions_count in submissions.items():
+        print(f"{language} - {submissions_count}")
+
+
+def process_exam():
+    results = {}
+    submissions = {}
+
+    while True:
+        command = input().split("-")
+        if len(command) == 1:
+            break
+        update_results(results, submissions, command)
+
+    print_results(results)
+    print_submissions(submissions)
+
+
+process_exam()
