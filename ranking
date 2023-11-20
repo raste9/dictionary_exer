@@ -16,7 +16,7 @@ while True:
     points = int(points)
 
     if contest in contests and contests[contest] == password:
-        if username not in submissions:
+        if username not in submissions.keys():
             submissions[username] = {}
 
         if contest not in submissions[username]:
