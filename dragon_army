@@ -1,0 +1,36 @@
+def get_default_stats():
+    return {
+        "damage": 45,
+        "health": 250,
+        "armor": 10
+    }
+
+n = int(input())
+dragons = {}
+
+for _ in range(n):
+    dragon_data = input().split()
+    dragon_type, dragon_name, damage, health, armor = dragon_data
+    damage = int(damage) if damage != "null" else get_default_stats()["damage"]
+    health = int(health) if health != "null" else get_default_stats()["health"]
+    armor = int(armor) if armor != "null" else get_default_stats()["armor"]
+
+    if dragon_type not in dragons:
+        dragons[dragon_type] = []
+
+    dragons[dragon_type].append({"name": dragon_name, "damage": damage, "health": health, "armor": armor})
+
+for dragon_type, dragon_info in sorted(dragons.items(), key=lambda x: x[0]):
+    total_damage = sum(dragon["damage"] for dragon in dragon_info)
+    total_health = sum(dragon["health"] for dragon in dragon_info)
+    total_armor = sum(dragon["armor"] for dragon in dragon_info)
+    num_dragons = len(dragon_info)
+
+    avg_damage = total_damage / num_dragons
+    avg_health = total_health / num_dragons
+    avg_armor = total_armor / num_dragons
+
+    print(f"{dragon_type}::({avg_damage:.2f}/{avg_health:.2f}/{avg_armor:.2f})")
+
+    for dragon in sorted(dragon_info, key=lambda x: x["name"]):
+        print(f"-{dragon['name']} -> damage: {dragon['damage']}, health: {dragon['health']}, armor: {dragon['armor']}")
