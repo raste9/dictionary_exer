@@ -1,0 +1,18 @@
+dwarfs = {}
+
+while True:
+    command = input()
+    if command == "Once upon a time":
+        break
+
+    name, hat_color, physics = command.split(" <:> ")
+    physics = int(physics)
+
+    if (name, hat_color) not in dwarfs:
+        dwarfs[(name, hat_color)] = physics
+    else:
+        dwarfs[(name, hat_color)] = max(dwarfs[(name, hat_color)], physics)
+
+sorted_dwarfs = sorted(dwarfs.items(), key=lambda x: (-x[1], -sum(1 for v in dwarfs.values() if v == x[1])))
+for (name, hat_color), physics in sorted_dwarfs:
+    print(f"({hat_color}) {name} <-> {physics}")
